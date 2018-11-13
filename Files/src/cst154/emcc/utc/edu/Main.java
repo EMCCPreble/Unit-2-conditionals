@@ -11,13 +11,14 @@ package cst154.emcc.utc.edu;
 
 
 /*************
- * TODO
+ * TODO (CONDITIONALS)
  * - output general, user friendly text for dates and times
  *      - break days and hours into 1/3 and output appropriate, early, middle, or end
  *        of the day or month
  * - output "th", "nd", "rd" or "st" after the day number
  *      - use n%10 to isolate the number in the ones place
  * - output "you will have a fun (spring, summer, fall winter) based on the month
+ *
  */
 
 import java.text.DecimalFormat;
