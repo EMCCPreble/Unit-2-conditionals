@@ -12,10 +12,12 @@ package cst154.emcc.utc.edu;
 
 /*************
  * TODO
- *  - add more if/else statements for month
- *  - add more if/else statements for day
- *  - format the time in HH:MM:SS format
- *  - refactor double to int for accuracy
+ * - output general, user friendly text for dates and times
+ *      - break days and hours into 1/3 and output appropriate, early, middle, or end
+ *        of the day or month
+ * - output "th", "nd", "rd" or "st" after the day number
+ *      - use n%10 to isolate the number in the ones place
+ * - output "you will have a fun (spring, summer, fall winter) based on the month
  */
 
 import java.text.DecimalFormat;
@@ -27,15 +29,15 @@ public class Main {
 
         //initialize user input values
         Scanner userInput = new Scanner(System.in);
-        double userDollarValue = 0;
-        double userCentsValue = 0;
+        int userDollarValue = 0;
+        int userCentsValue = 0;
 
         //calculate seconds for each time frame
         //declare them as final so they cannot be changed after initialization
-        final double yearSeconds = 60*60*24*30*12;
-        final double monthSeconds = 60*60*24*30;
-        final double daySeconds = 60*60*24;
-        final double hourSeconds = 60*60;
+        final int yearSeconds = 60*60*24*30*12;
+        final int monthSeconds = 60*60*24*30;
+        final int daySeconds = 60*60*24;
+        final int hourSeconds = 60*60;
 
         //Declare a decimal format to add commas to outputted numbers
         DecimalFormat addCommas = new DecimalFormat("###,###");
@@ -50,7 +52,7 @@ public class Main {
 
         //prompt the user for the money they want and turn into cents/seconds
         System.out.println("\nHow much money do you want?");
-        userDollarValue = userInput.nextDouble();
+        userDollarValue = userInput.nextInt();
         userCentsValue = userDollarValue*100;
 
         /*******
@@ -77,20 +79,20 @@ public class Main {
          *
          *
          */
-        double years = 2019 + userCentsValue/yearSeconds;
-        double yearRemainder = userCentsValue % yearSeconds;
+        int years = 2019 + userCentsValue/yearSeconds;
+        int yearRemainder = userCentsValue % yearSeconds;
 
-        double months = yearRemainder / monthSeconds;
-        double monthRemainder = yearRemainder % monthSeconds;
+        int months = yearRemainder / monthSeconds;
+        int monthRemainder = yearRemainder % monthSeconds;
 
-        double days = monthRemainder / daySeconds;
-        double dayRemainder = monthRemainder % (daySeconds);
+        int days = monthRemainder / daySeconds;
+        int dayRemainder = monthRemainder % (daySeconds);
 
-        double hours = dayRemainder / hourSeconds;
-        double hourRemainder = dayRemainder % hourSeconds;
+        int hours = dayRemainder / hourSeconds;
+        int hourRemainder = dayRemainder % hourSeconds;
 
-        double minutes = hourRemainder / 60;
-        double secondsLeft = hourRemainder % 60;
+        int minutes = hourRemainder / 60;
+        int secondsLeft = hourRemainder % 60;
 
         /**********
          * End whole number/left over seconds pattern
@@ -99,20 +101,37 @@ public class Main {
         String textMonth = null;
         //String textMonth;
 
-        if ((int)months == 1){
+        if (months == 1){
             textMonth = "January";
-        } else if ((int)months == 2){
+        } else if (months == 2){
             textMonth = "February";
+        } else if (months == 3){
+            textMonth = "March";
+        } else if (months == 4){
+            textMonth = "April";
+        } else if (months == 5) {
+            textMonth = "May";
+        } else if (months == 6){
+            textMonth = "June";
+        } else if (months == 7){
+            textMonth = "July";
+        } else if (months == 8){
+            textMonth = "August";
+        } else if (months == 9){
+            textMonth = "September";
+        } else if (months == 10){
+            textMonth = "October";
+        } else if (months == 11){
+            textMonth = "November";
+        } else if (months == 12){
+            textMonth = "December";
         }
 
         //output values to the user
         System.out.println("It will take you " +addCommas.format(userCentsValue)+ " seconds to make $" +addCommas.format(userDollarValue)+
-                "\nThis is the exact moment in time after 1/1/2019 at 00:00:00 that you will make $"+addCommas.format(userDollarValue));
-        System.out.println("\nyear = "+(int)years+
-                "\nmonth = "+textMonth+
-                "\nday = "+(int)days+
-                "\nhour = "+(int)hours+
-                "\nminute = "+(int)minutes+
-                "\nsecond = "+(int)secondsLeft);
+                "\nThis is the exact moment in time you'll make it: ";
+
+        System.out.println(textMonth+", "+days+ ", "+years+
+                " at "+hours+ ":" +minutes+":"+secondsLeft);
     }
 }
