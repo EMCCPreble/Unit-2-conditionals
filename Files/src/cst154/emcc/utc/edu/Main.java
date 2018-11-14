@@ -11,22 +11,7 @@ package cst154.emcc.utc.edu;
 
 
 /*************
- * TODO (Code)
- *  - Refactor final variables to meet proper code naming convention (ALL_CAPS_UNDERSCORES)
  *
- * TODO (WHILE)
- *  - output a yearly, monthly, daily, or hourly breakdown based on what the user enters
- *    - input the dollar amount from the user
- *      - figure out if it will take more than a year to make the money
- *      - figure out if it will take more than a month to make the money
- *      - figure out if it will take more than a day to make the money
- *      - figure out if it will take more than an hour to make the money
- *    - once the largest time frame is determined, output how much will be made for each timeframe
- *      making sure to output the remaining amount in the last year accurately
- *
- * TODO (SWITCH)
- *  - Change ladder if/else statements to Switch
- *      - Months 0 and 1 are done, continue through
  *
  * TODO (Development)
  * incorporate the following switch statement to return the correct number of days in a month
@@ -66,9 +51,9 @@ public class Main {
         //calculate seconds for each time frame
         //declare them as final so they cannot be changed after initialization
         final int YEAR_SECONDS = 60*60*24*30*12;
-        final int monthSeconds = 60*60*24*30;
-        final int daySeconds = 60*60*24;
-        final int hourSeconds = 60*60;
+        final int MONTH_SECONDS = 60*60*24*30;
+        final int DAY_SECONDS = 60*60*24;
+        final int HOUR_SECONDS = 60*60;
 
         //Declare a decimal format to add commas to outputted numbers
         DecimalFormat addCommas = new DecimalFormat("###,###");
@@ -113,14 +98,14 @@ public class Main {
         int years = 2019 + userCentsValue/YEAR_SECONDS;
         int yearRemainder = userCentsValue % YEAR_SECONDS;
 
-        int months = yearRemainder / monthSeconds;
-        int monthRemainder = yearRemainder % monthSeconds;
+        int months = yearRemainder / MONTH_SECONDS;
+        int monthRemainder = yearRemainder % MONTH_SECONDS;
 
-        int days = monthRemainder / daySeconds;
-        int dayRemainder = monthRemainder % (daySeconds);
+        int days = monthRemainder / DAY_SECONDS;
+        int dayRemainder = monthRemainder % (DAY_SECONDS);
 
-        int hours = dayRemainder / hourSeconds;
-        int hourRemainder = dayRemainder % hourSeconds;
+        int hours = dayRemainder / HOUR_SECONDS;
+        int hourRemainder = dayRemainder % HOUR_SECONDS;
 
         int minutes = hourRemainder / 60;
         int secondsLeft = hourRemainder % 60;
@@ -130,36 +115,6 @@ public class Main {
          */
 
         String textMonth = null;
-        //String textMonth;
-
-        //if (months == 0){
-        //    textMonth = "January";
-        //} else if (months == 1){
-           // textMonth = "February";
-       // } else
-           if (months == 2){
-            textMonth = "March";
-        } else if (months == 3){
-            textMonth = "April";
-        } else if (months == 4) {
-            textMonth = "May";
-        } else if (months == 5){
-            textMonth = "June";
-        } else if (months == 6){
-            textMonth = "July";
-        } else if (months == 7){
-            textMonth = "August";
-        } else if (months == 8){
-            textMonth = "September";
-        } else if (months == 9){
-            textMonth = "October";
-        } else if (months == 10){
-            textMonth = "November";
-        } else if (months == 11){
-            textMonth = "December";
-        } else {
-            textMonth = "Something broke, fix it";
-        }
 
         switch (months){
             case 0:
@@ -167,6 +122,39 @@ public class Main {
                 break;
             case 1:
                 textMonth = "February";
+                break;
+            case 2:
+                textMonth = "March";
+                break;
+            case 3:
+                textMonth = "April";
+                break;
+            case 4:
+                textMonth = "May";
+                break;
+            case 5:
+                textMonth = "June";
+                break;
+            case 6:
+                textMonth = "July";
+                break;
+            case 7:
+                textMonth = "August";
+                break;
+            case 8:
+                textMonth = "September";
+                break;
+            case 9:
+                textMonth = "October";
+                break;
+            case 10:
+                textMonth = "November";
+                break;
+            case 11:
+                textMonth = "December";
+                break;
+            default:
+                textMonth = "Oh no, I messed up";
                 break;
         }
 
@@ -176,21 +164,50 @@ public class Main {
 
         System.out.println(textMonth+" "+(days+1)+ ", "+years+
                 " at "+hours+ ":" +minutes+":"+secondsLeft);
+        int count = 1;
+        int tempDollarValue = 0;
 
         if (years-2019 > 1)
         {
             int yearDollars = YEAR_SECONDS / 100;
-            int count = 1;
-            int tempDollarValue = 0;
 
-
-            while (tempDollarValue < userDollarValue){
+            while (tempDollarValue < userDollarValue)
+            {
                 tempDollarValue += yearDollars;
 
                 System.out.println ("Year "+count+" amount: $" + addCommas.format(tempDollarValue));
                 count++;
             }
-        }
+
+        } else if (months > 1)
+            {
+                int monthDollars = MONTH_SECONDS / 100;
+
+                while (tempDollarValue < userDollarValue)
+                {
+                    tempDollarValue += monthDollars;
+                    System.out.println ("Month "+count+" amount :$" + addCommas.format(tempDollarValue));
+                }
+
+            } else if (days > 1)
+                {
+                    int dayDollars = DAY_SECONDS / 100;
+
+                    while (tempDollarValue < userDollarValue)
+                    {
+                        tempDollarValue += dayDollars;
+                        System.out.println("Day "+count+" amount :$" +addCommas.format(tempDollarValue));
+                    }
+                } else if (hours > 1)
+                {
+                    int hourDollars = HOUR_SECONDS / 100;
+                    while (tempDollarValue < userDollarValue)
+                    {
+                        tempDollarValue += hourDollars;
+                        System.out.println("Hour "+count+" amount :$" +addCommas.format(tempDollarValue));
+                    }
+                }
+
     }
 }
 
