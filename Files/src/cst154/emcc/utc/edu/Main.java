@@ -11,13 +11,9 @@ package cst154.emcc.utc.edu;
 
 
 /*************
- * TODO (CONDITIONALS)
- * - output general, user friendly text for dates and times
- *      - break days and hours into 1/3 and output appropriate, early, middle, or end
- *        of the day or month
- * - output "th", "nd", "rd" or "st" after the day number
- *      - use n%10 to isolate the number in the ones place
- * - output "you will have a fun (spring, summer, fall winter) based on the month
+ * TODO (WHILE)
+ * - output a yearly, monthly, daily, or hourly breakdown based on what the user enters
+ *
  *
  */
 
@@ -130,9 +126,28 @@ public class Main {
 
         //output values to the user
         System.out.println("It will take you " +addCommas.format(userCentsValue)+ " seconds to make $" +addCommas.format(userDollarValue)+
-                "\nThis is the exact moment in time you'll make it: ";
+                "\nThis is the exact moment in time you'll make it: ");
 
         System.out.println(textMonth+", "+days+ ", "+years+
                 " at "+hours+ ":" +minutes+":"+secondsLeft);
+
+        if (years-2019 > 1)
+        {
+            int yearDollars = yearSeconds / 100;
+            int count = 1;
+            int tempDollarValue = 0;
+
+
+            while (tempDollarValue < userDollarValue){
+                tempDollarValue += yearDollars;
+
+                System.out.println ("Year "+count+" amount: $" + addCommas.format(tempDollarValue));
+                count++;
+            }
+        }
     }
 }
+
+//TODO (Bugs)
+//TempDollarValue amount outputting higher than the user entry in the while loop
+//Days of the week not displayed correctly (0 = Sunday, 1 = Monday ....)
